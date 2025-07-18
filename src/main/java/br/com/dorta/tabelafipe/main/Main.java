@@ -2,6 +2,7 @@ package br.com.dorta.tabelafipe.main;
 
 import br.com.dorta.tabelafipe.models.Dados;
 import br.com.dorta.tabelafipe.models.Modelos;
+import br.com.dorta.tabelafipe.models.Veiculos;
 import br.com.dorta.tabelafipe.services.ConsumoApi;
 import br.com.dorta.tabelafipe.services.ConverteDados;
 
@@ -70,6 +71,22 @@ public class Main {
         System.out.println("\nModelos Filtrados: ");
         modelosFiltrados.forEach(System.out::println);
 
+        System.out.println("Digite por favor o código do modelo para buscar os valores de avaliação: ");
+        var codigoModelo = reader.nextLine();
 
+        endereco = endereco + codigoModelo + "/anos/";
+        json = consumoApi.obterDados(endereco);
+        List<Dados> anos = converteDados.obterLista(json, Dados.class);
+        List<Veiculos> veiculos = new ArrayList<>();
+
+        for (int i = 0; i < anos.size(); i++) {
+            var enderecoAnos = endereco + anos.get(i).codigo();
+            json = consumoApi.obterDados(enderecoAnos);
+            Veiculos veiculo = converteDados.obterDados(json, Veiculos.class);
+            veiculos.add(veiculo);
+        }
+
+        System.out.println("\nTodos os veículos filtrados com avaliações por ano: ");
+        veiculos.forEach(System.out::println);
     }
 }

@@ -59,5 +59,17 @@ public class Main {
         listaModelos.modelos().stream()
                 .sorted(Comparator.comparing(Dados::codigo))
                 .forEach(System.out::println);
+
+        System.out.println("Digite um trecho do nome do modelo do veiculo: ");
+        var nomeVeiculo = reader.nextLine();
+
+        List<Dados> modelosFiltrados = listaModelos.modelos().stream()
+                .filter(m -> m.nome().toLowerCase().contains(nomeVeiculo.toLowerCase()))
+                .collect(Collectors.toList());
+
+        System.out.println("\nModelos Filtrados: ");
+        modelosFiltrados.forEach(System.out::println);
+
+
     }
 }

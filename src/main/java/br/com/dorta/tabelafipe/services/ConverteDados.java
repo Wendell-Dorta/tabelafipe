@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 
 import java.util.List;
 
-public class ConverteDados {
+public class ConverteDados implements IConverteDados {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override

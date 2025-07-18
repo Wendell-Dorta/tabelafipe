@@ -48,6 +48,16 @@ public class Main {
                 .sorted(Comparator.comparing(Dados::codigo))
                 .forEach(System.out::println);
 
+        System.out.println("\nInforme o código da marca: ");
+        var codigoMarca = reader.nextLine();
 
+        endereco = endereco + codigoMarca + "/modelos/";
+        json = consumoApi.obterDados(endereco);
+        var listaModelos = converteDados.obterDados(json, Modelos.class);
+
+        System.out.println("\nModelos da marca: ");
+        listaModelos.modelos().stream()
+                .sorted(Comparator.comparing(Dados::codigo))
+                .forEach(System.out::println);
     }
 }
